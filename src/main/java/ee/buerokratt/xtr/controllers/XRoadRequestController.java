@@ -38,7 +38,8 @@ public class XRoadRequestController {
         log.info("loaded template: " + deepToString( service ));
 
         try {
-            return ResponseEntity.ok(executor.execute(service, requestBody));
+	    return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+            	.body(executor.execute(service, requestBody));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(e.getCause());
         }
