@@ -40,6 +40,7 @@ public class XRoadRequestController {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
             .body(executor.execute(service, requestBody));
         } catch (Exception e) {
+            log.error("Got error from execute: "+e.getMessage(), e);
             return ResponseEntity.badRequest().body(e.getCause());
         }
     }
