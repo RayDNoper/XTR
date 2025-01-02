@@ -8,7 +8,7 @@ application:
     ssl:
         certification:
         key:
-        keystore-password: 123456
+        keystore-password: defaultpassword
 
     client-data:
         member-class: GOV

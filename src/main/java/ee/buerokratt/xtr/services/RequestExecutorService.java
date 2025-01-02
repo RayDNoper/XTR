@@ -87,7 +87,7 @@ public class RequestExecutorService {
     private WebClient createWebClientWithSsl() throws Exception {
         // Load the keystore
         KeyStore keyStore = KeyStore.getInstance("PKCS12"); // Or "JKS"
-        try (FileInputStream keyStoreStream = new FileInputStream("ssl/keystore.p12")) {
+        try (FileInputStream keyStoreStream = new FileInputStream("/app/ssl/keystore.p12")) {
             keyStore.load(keyStoreStream, keystorePassword.toCharArray());
         }
 
