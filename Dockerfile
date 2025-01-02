@@ -25,7 +25,7 @@ COPY DSL /DSL
 COPY wsdl /app/wsdl
 COPY generate-keystore.sh .
 
-COPY ssl ssl
+COPY ssl /app/ssl
 
 ENV application.dslPath=/DSL
 
@@ -35,6 +35,7 @@ RUN echo BUILDTIME=`date +%s` >> /app/.env
 RUN useradd xtr
 RUN chown -R xtr:xtr /app
 RUN chown -R xtr:xtr /DSL
+
 USER xtr
 
 EXPOSE 9010
