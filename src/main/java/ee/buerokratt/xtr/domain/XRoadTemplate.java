@@ -27,8 +27,8 @@ public class XRoadTemplate {
         return returnParams;
     }
 
-    public String getPayload(Map<String, String> params) throws Exception{
-        return HandlebarsHelper.apply(getEnvelope(), filterParams(this, params));
+    public Map<String, String> getFilteredParams(Map<String,String > _params) {
+        return filterParams(this, _params);
     }
 
     public String toYaml() {

@@ -14,18 +14,18 @@ import java.util.UUID;
 public class HandlebarsHelper {
 
     @Value("application.xroad-instance")
-    static String xroadInstance;
+    String xroadInstance;
 
     @Value("application.client-data.member-class")
-    static String memberClass;
+    String memberClass;
 
     @Value("application.client-data.member-code")
-    static String memberCode;
+    String memberCode;
 
     @Value("application.client-data.subsystem-code")
-    static String subsystemCode;
+    String subsystemCode;
 
-    public static String apply(String template, Map<String, String> values) throws IOException {
+    public String apply(String template, Map<String, String> values) throws IOException {
         Handlebars hbs = new Handlebars();
         Template result = hbs.compileInline(template);
 
@@ -40,7 +40,7 @@ public class HandlebarsHelper {
                 .apply(values);
     }
 
-    private static String generateClientEnvelope() {
+    private String generateClientEnvelope() {
         return "<xroad:client id:objectType=\"SUBSYSTEM\">" +
                 "<id:xRoadInstance>%s</id:xRoadInstance>" +
                 "<id:memberClass>%s</id:memberClass>" +
@@ -53,7 +53,7 @@ public class HandlebarsHelper {
                                 subsystemCode);
     }
 
-    private static String generateUUID() {
+    private String generateUUID() {
         return UUID.randomUUID().toString();
     }
 }

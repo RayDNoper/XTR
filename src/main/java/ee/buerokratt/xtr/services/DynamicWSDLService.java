@@ -23,8 +23,12 @@ import java.util.*;
 @Service
 public class DynamicWSDLService {
 
+    public DynamicWSDLService() {
+        start();
+    }
+
     public void start() {
-        String wsdlFilePath = "ar_97.wsdl"; // Update the path to your local WSDL file
+        String wsdlFilePath = "/app/wsdl/ar_97.wsdl"; // Update the path to your local WSDL file
         try {
             loadFromFile(wsdlFilePath);
         } catch (Exception e) {
@@ -37,14 +41,14 @@ public class DynamicWSDLService {
 
         // Extract schema URLs
         List<String> schemaUrls = extractSchemaUrls(wsdlContent);
-        log.debug("Schemas found: " + schemaUrls);
+        log.info("Schemas found: " + schemaUrls);
 
         // Download XSD files
         downloadXsd(schemaUrls);
 
         // Extract schema namespaces
         Map<String, Element> schemaNamespaces = extractSchemaNamespaces(wsdlContent);
-        log.debug("Schema namespaces found: " + schemaNamespaces);
+        log.info("Schema namespaces found: " + schemaNamespaces);
 
         // Parse WSDL for operations
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -72,7 +76,7 @@ public class DynamicWSDLService {
             List<String> params = entry.getValue();
             byte[] soapEnvelopeBytes = buildCustomSoapEnvelope(opName, params);
             String prettySoapEnvelope = toXML(soapEnvelopeBytes);
-            log.debug("SOAP Envelope for operation '" + opName + "':\n" + prettySoapEnvelope + "\n");
+            log.info("SOAP Envelope for operation '" + opName + "':\n" + prettySoapEnvelope + "\n");
         }
     }
 
@@ -127,12 +131,12 @@ public class DynamicWSDLService {
                             out.write(buffer, 0, bytesRead);
                         }
                     }
-                    log.debug("Downloaded: " + fileName);
+                    log.info("Downloaded: " + fileName);
                 } else {
-                    log.debug("Failed to download: " + url);
+                    log.info("Failed to download: " + url);
                 }
             } catch (IOException e) {
-                log.debug("Error downloading " + url + ": " + e.getMessage());
+                log.info("Error downloading " + url + ": " + e.getMessage());
             }
         }
     }

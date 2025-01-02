@@ -38,8 +38,10 @@ public class RequestExecutorService {
     @Value("${application.ssl.keystore-password}")
     private String keystorePassword;
 
+    HandlebarsHelper handlebars;
+
     public String execute(XRoadTemplate template, Map<String, String> params) throws Exception {
-        String payload = template.getPayload(params);
+        String payload = handlebars.apply(template.getEnvelope(), template.getFilteredParams(params));
         if (template.getService() == null || template.getService().isBlank())
             return xmlToJson(doRequestTowarsdSS(template.getMethod(), payload));
         else

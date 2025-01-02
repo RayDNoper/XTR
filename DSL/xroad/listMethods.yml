@@ -1,6 +1,6 @@
 params:
   - member_class
-  - subsystem_code
+  - member_code
   - subsystem_code
 
 method: POST

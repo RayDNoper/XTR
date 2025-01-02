@@ -39,7 +39,7 @@ public class OpenApiBuilder {
             requestBodySchema.setType("object");
             dsl.getParams().forEach(
                     field -> requestBodySchema.addProperties(field,
-                            new Schema().type(field.getClass().getSimpleName()))
+                            new Schema().type(field.getClass().getSimpleName().toLowerCase()))
             );
             RequestBody requestBody = new RequestBody();
             requestBody.setContent(
