@@ -42,6 +42,9 @@ public class RequestExecutorService {
 
     public String execute(XRoadTemplate template, Map<String, String> params) throws Exception {
         String payload = handlebars.apply(template.getEnvelope(), template.getFilteredParams(params));
+
+        log.info("Generated payload: " + payload);
+
         if (template.getService() == null || template.getService().isBlank())
             return xmlToJson(doRequestTowarsdSS(template.getMethod(), payload));
         else
