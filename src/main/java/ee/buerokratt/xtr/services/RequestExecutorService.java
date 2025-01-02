@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ee.buerokratt.xtr.domain.XRoadTemplate;
 import io.netty.handler.ssl.SslContextBuilder;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -28,6 +30,7 @@ import java.util.Properties;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class RequestExecutorService {
 
     Properties properties;
@@ -38,7 +41,7 @@ public class RequestExecutorService {
     @Value("${application.ssl.keystore-password}")
     private String keystorePassword;
 
-    HandlebarsHelper handlebars;
+    final HandlebarsHelper handlebars;
 
     public String execute(XRoadTemplate template, Map<String, String> params) throws Exception {
         String payload = handlebars.apply(template.getEnvelope(), template.getFilteredParams(params));
