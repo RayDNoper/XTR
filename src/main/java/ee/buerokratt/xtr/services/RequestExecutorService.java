@@ -72,9 +72,9 @@ public class RequestExecutorService {
     private String doRequestTowarsdSS(String method, String payload) throws Exception {
         WebClient client = createWebClientWithSsl();
 
-        log.info("Sending "+ method +"request [[" + payload + "]] to endpoint "+ securityServer);
+        log.info("Sending "+ method +" request [[" + payload + "]] to endpoint "+ securityServer);
 
-        return client
+        String result = client
                 .method(HttpMethod.valueOf(method))
                 .uri(securityServer)
                 .body(BodyInserters.fromValue(payload))
@@ -82,6 +82,10 @@ public class RequestExecutorService {
                 .toEntity(String.class)
                 .block()
                 .getBody();
+
+        log.info("Received: "+ result);
+
+        return result;
     }
 
 
