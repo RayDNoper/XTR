@@ -2,6 +2,7 @@ package ee.buerokratt.xtr.services;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.apache.logging.log4j.message.ParameterizedMessage.deepToString;
+
+@Slf4j
 @Service
 public class HandlebarsHelper {
 
@@ -30,27 +34,30 @@ public class HandlebarsHelper {
         Template result = hbs.compileInline(template);
 
         Map<String, String> localValues = new HashMap<>();
-        localValues.put("generate.uuid", generateUUID());
-        localValues.put("generate.client", generateClientEnvelope());
-        localValues.put("generate.instance", xroadInstance);
+        localValues.put("generate_uuid", generateUUID());
+        localValues.put("generate_client", generateClientEnvelope());
+        localValues.put("generate_instance", xroadInstance);
 
-        result.apply(localValues);
+        localValues.putAll(values);
+
+        log.info("Local values: "+deepToString(localValues));
 
         return result
-                .apply(values);
+                .apply(localValues);
     }
 
     private String generateClientEnvelope() {
-        return "<xroad:client id:objectType=\"SUBSYSTEM\">" +
+        return ("<xroad:client id:objectType='SUBSYSTEM'>" +
                 "<id:xRoadInstance>%s</id:xRoadInstance>" +
                 "<id:memberClass>%s</id:memberClass>" +
                 "<id:memberCode>%s</id:memberCode>" +
                 "<id:subsystemCode>%s</id:subsystemCode>" +
-                "</xroad:client>"
-                        .formatted(xroadInstance,
-                                memberClass,
-                                memberCode,
-                                subsystemCode);
+                "</xroad:client>")
+                        .formatted(
+                        xroadInstance,
+                        memberClass,
+                        memberCode,
+                        subsystemCode);
     }
 
     private String generateUUID() {
