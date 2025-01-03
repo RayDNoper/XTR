@@ -57,11 +57,10 @@ public class RequestExecutorService {
     private String doRequest(String serviceURI, String method, String payload) {
         RestClient client = RestClient.create();
 
-        log.info("Sending "+ method +"request [[" + payload + "]] to endpoint "+ serviceURI);
+        log.info("Sending "+ method +" request [[" + payload + "]] to endpoint "+ serviceURI);
 
         return client.method(HttpMethod.valueOf(method))
                 .uri(serviceURI)
-                .header("Content-type", "application/xml")
                 .body(payload)
                 .retrieve()
                 .toEntity(String.class)
@@ -77,6 +76,7 @@ public class RequestExecutorService {
         String result = client
                 .method(HttpMethod.valueOf(method))
                 .uri(securityServer)
+                .header("Content-type", "application/xml")
                 .body(BodyInserters.fromValue(payload))
                 .retrieve()
                 .toEntity(String.class)
