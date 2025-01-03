@@ -61,6 +61,7 @@ public class RequestExecutorService {
 
         return client.method(HttpMethod.valueOf(method))
                 .uri(serviceURI)
+                .header("Content-type", "application/xml")
                 .body(payload)
                 .retrieve()
                 .toEntity(String.class)
