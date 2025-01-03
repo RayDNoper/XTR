@@ -13,7 +13,7 @@ application:
     client-data:
         member-class: GOV
         member-code: 70006317
-        sybsystem-code: byrokratt
+        subsystem-code: byrokratt
 
     security-server: https://out.test.x-tee.ee:443/
     xroad-instance: ee-test

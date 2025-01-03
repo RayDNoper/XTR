@@ -17,16 +17,16 @@ import static org.apache.logging.log4j.message.ParameterizedMessage.deepToString
 @Service
 public class HandlebarsHelper {
 
-    @Value("application.xroad-instance")
+    @Value("${application.xroad-instance}")
     String xroadInstance;
 
-    @Value("application.client-data.member-class")
+    @Value("${application.client-data.member-class}")
     String memberClass;
 
-    @Value("application.client-data.member-code")
+    @Value("${application.client-data.member-code}")
     String memberCode;
 
-    @Value("application.client-data.subsystem-code")
+    @Value("${application.client-data.subsystem-code}")
     String subsystemCode;
 
     public String apply(String template, Map<String, String> values) throws IOException {
