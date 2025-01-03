@@ -76,7 +76,7 @@ public class RequestExecutorService {
         String result = client
                 .method(HttpMethod.valueOf(method))
                 .uri(securityServer)
-                .header("Content-type", "application/xml")
+                .header("Content-type", "text/xml")
                 .body(BodyInserters.fromValue(payload))
                 .retrieve()
                 .toEntity(String.class)
