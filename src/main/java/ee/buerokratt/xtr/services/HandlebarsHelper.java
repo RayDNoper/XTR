@@ -29,6 +29,9 @@ public class HandlebarsHelper {
     @Value("${application.client-data.subsystem-code}")
     String subsystemCode;
 
+    @Value("${application.client-data.default-userId}")
+    String defaultUserID;
+
     public String apply(String template, Map<String, String> values) throws IOException {
         Handlebars hbs = new Handlebars();
         Template result = hbs.compileInline(template);
@@ -38,6 +41,7 @@ public class HandlebarsHelper {
         localValues.put("generate_client", generateClientEnvelope());
         localValues.put("generate_instance", xroadInstance);
         localValues.put("generate_representedParty", generateRepresentedParty());
+        localValues.put("generate_defaultUserId", defaultUserID);
 
         localValues.putAll(values);
 

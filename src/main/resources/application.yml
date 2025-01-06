@@ -14,6 +14,7 @@ application:
         member-class: GOV
         member-code: 70006317
         subsystem-code: byrokratt
+        default-userId: EE11111111111
 
     security-server: https://out.test.x-tee.ee:443/
     xroad-instance: ee-test
