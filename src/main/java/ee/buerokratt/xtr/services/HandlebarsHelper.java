@@ -37,6 +37,7 @@ public class HandlebarsHelper {
         localValues.put("generate_uuid", generateUUID());
         localValues.put("generate_client", generateClientEnvelope());
         localValues.put("generate_instance", xroadInstance);
+        localValues.put("generate_representedParty", generateRepresentedParty());
 
         localValues.putAll(values);
 
@@ -58,6 +59,15 @@ public class HandlebarsHelper {
                         memberClass,
                         memberCode,
                         subsystemCode);
+    }
+
+    private String generateRepresentedParty() {
+        return ("<rep:representedParty>" +
+                "<rep:partyClass>%s</rep:partyClass>" +
+                "<rep:partyCode>%s</rep:partyCode>" +
+                "</rep:representedParty>")
+                .formatted(memberClass,
+                        memberCode);
     }
 
     private String generateUUID() {

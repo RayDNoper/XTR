@@ -10,6 +10,9 @@ COPY .env .env
 COPY DSL DSL
 COPY wsdl wsdl
 
+COPY cert.crt ssl/
+COPY cert.key ssl/
+
 RUN chmod 754 ./gradlew
 RUN ./gradlew -Pprod clean bootJar
 RUN mkdir -p build/libs && (cd build/libs; jar -xf *.jar)
@@ -26,6 +29,9 @@ COPY wsdl /app/wsdl
 COPY generate-keystore.sh .
 
 COPY ssl /app/ssl
+
+COPY ssl/cert.crt /app/ssl
+COPY ssl/cert.key /app/ssl
 
 ENV application.dslPath=/DSL
 

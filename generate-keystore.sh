@@ -2,7 +2,6 @@
 
 KEY_PASS=${KEY_PASS:-defaultpassword}
 
-keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -keystore /app/ssl/keystore.p12 \
-        -dname "CN=, OU=, O=, L=, ST=, C=" -storepass "$KEY_PASS" -validity 3650
+openssl pkcs12 -export -out /app/ssl/keystore.p12 -inkey /app/ssl/cert.key -in /app/ssl/cert.crt -name tomcat -passout "pass:$KEY_PASS"
 
 java -cp app:app/lib/* ee.buerokratt.xtr.XTRApplication
